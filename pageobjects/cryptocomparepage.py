@@ -41,9 +41,11 @@ class CryptoComparePage:
         element.send_keys(input_number)
 
     def get_profit_value(self):
+        locator = (By.XPATH, "//div[@class='circle-content ng-binding']")
         element = WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((By.XPATH, "//div[@class='circle-content ng-binding']")))
-        return element.text
+            EC.presence_of_element_located(locator))
+        value = float(element.text.replace("$", "").replace(",", ""))
+        return value
 
     def wait_to_be_clickable(self, locator):
         for i in range(1, 4):

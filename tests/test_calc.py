@@ -27,12 +27,10 @@ class TestCalc(Base):
         time.sleep(2)
         profit = self.page.get_profit_value()
         print("Profit per month = ", profit)
-        profit = profit.replace("$", "")
-        profit = profit.replace(",", "")
         if measure == "TH/s":
-            assert float(profit) > 0
+            assert profit > 0
         else:
-            assert float(profit) < 0
+            assert profit < 0
 
     def teardown_class(self):
         self.close(self)
