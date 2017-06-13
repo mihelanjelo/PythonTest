@@ -7,3 +7,5 @@ class Base(object):
     def visit(self, url):
         self.driver.get(url)
 
+    def close(self):
+        self.driver.quit()

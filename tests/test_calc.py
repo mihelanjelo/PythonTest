@@ -35,7 +35,7 @@ class TestCalc(Base):
             assert float(profit) < 0
 
     def teardown_class(self):
-        self.driver.quit()
+        self.close(self)
 
 
 if __name__ == '__main__':
