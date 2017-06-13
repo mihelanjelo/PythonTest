@@ -11,7 +11,7 @@ class TestCalc(Base):
     page = CryptoComparePage(Base.driver)
 
     def setup_class(self):
-        self.driver.get("https://www.cryptocompare.com/mining/calculator/btc")
+        self.visit(self, url="https://www.cryptocompare.com/mining/calculator/btc")
 
     @pytest.mark.parametrize("value1, value2, value3, measure", [
         (122, 122, 10, "H/s"),
