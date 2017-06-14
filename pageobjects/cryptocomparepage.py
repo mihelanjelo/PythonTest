@@ -47,6 +47,21 @@ class CryptoComparePage:
         value = float(element.text.replace("$", "").replace(",", ""))
         return value
 
+    def get_bitcoin_price(self):
+        locator = (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[2]")
+        element = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located(locator))
+        value = float(element.text.replace("1 BTC = $", ""))
+        return value
+
+    def get_hashrate(self):
+        locator = (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[1]")
+        element = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located(locator))
+        print(element.text.replace(",", "").replace("GH/s", ""))
+        value = float(element.text.replace(",", "").replace("GH/s", ""))
+        return value
+
     def wait_to_be_clickable(self, locator):
         for i in range(1, 4):
             if not WebDriverWait(self.driver, 1).until(EC.element_to_be_clickable(locator)):
