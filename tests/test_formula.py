@@ -23,13 +23,14 @@ class TestFormula(Base):
         hash_power = hp
         kwatts = pc/1000
         time_in_hours = 24 * 30
+        block_time = 600
         cost_per_hour = c
 
         self.page.input_hashing_power(input_number=hp, measure=m)
         self.page.input_power_consumption(input_number=pc)
         self.page.input_cost(input_number=c)
         time.sleep(1)
-        profit = (time_in_sec * block_in_money * hash_power)/(hashrate * 600) - kwatts * time_in_hours * cost_per_hour
+        profit = (time_in_sec * block_in_money * hash_power)/(hashrate * block_time) - kwatts * time_in_hours * cost_per_hour
         print(round(profit, 2))
         print(self.page.get_profit_value())
         assert round(profit, 2) == self.page.get_profit_value()
