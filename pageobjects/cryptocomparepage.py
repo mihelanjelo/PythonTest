@@ -40,7 +40,7 @@ class CryptoComparePage:
         element.click()
         element.send_keys(input_number)
 
-    def get_profit_value(self):
+    def get_profit_per_month_value(self):
         locator = (By.XPATH, "//div[@class='circle-content ng-binding']")
         element = WebDriverWait(self.driver, 3).until(
             EC.presence_of_element_located(locator))

@@ -31,10 +31,10 @@ class TestFormula(Base):
         self.page.input_power_consumption(input_number=pc)
         self.page.input_cost(input_number=c)
         time.sleep(1)
-        profit = (time_in_sec * block_in_money * hash_power)/(hashrate * block_time) - kwatts * time_in_hours * cost_per_hour
-        print(round(profit, 2))
-        print(self.page.get_profit_value())
-        assert round(profit, 2) == self.page.get_profit_value()
+        profit_per_month = (time_in_sec * block_in_money * hash_power)/(hashrate * block_time) - kwatts * time_in_hours * cost_per_hour
+        print(round(profit_per_month, 2))
+        print(self.page.get_profit_per_month_value())
+        assert round(profit_per_month, 2) == self.page.get_profit_per_month_value()
 
     def teardown_class(self):
         self.close(self)
