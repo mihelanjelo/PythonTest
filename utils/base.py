@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 
-class Base(object):
+class Base():
     driver = webdriver.Chrome()
 
     def visit(self, url):
