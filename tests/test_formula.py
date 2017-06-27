@@ -15,9 +15,10 @@ class TestFormula(Base):
 
     @pytest.mark.parametrize("hp, pc, c, m", [
         (10000, 5, 50, "GH/s"),
+        (20000, 4, 58, "GH/s")
     ])
     def test_calc_result(self, hp, pc, c, m):
-        time_in_sec = 2592000
+        time_in_sec = 24 * 60 * 60 * 30
         block_in_money = 12.5 * self.page.get_bitcoin_price()
         hashrate = self.page.get_hashrate()
         hash_power = hp
