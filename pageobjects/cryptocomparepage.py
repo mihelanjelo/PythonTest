@@ -6,25 +6,24 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 class CryptoComparePage:
-
     def __init__(self, driver):
         self.driver = driver
 
-    locators = {"hashing_power" : (By.XPATH, "//input[@name='HashingPower']"),
-                "power_consumption" : (By.XPATH, "//input[@name='PowerConsumption']"),
-                "cost" : (By.XPATH, "//input[@name='CostPerkWh']"),
-                "profit_per_month" : (By.XPATH, "//div[@class='circle-content ng-binding']"),
-                "bitcoin_price" : (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[2]"),
-                "hashrate" : (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[1]"),
-                "change_measure" : (By.XPATH, "//select[@name='currentHashingUnit']")
+    locators = {"hashing_power": (By.XPATH, "//input[@name='HashingPower']"),
+                "power_consumption": (By.XPATH, "//input[@name='PowerConsumption']"),
+                "cost": (By.XPATH, "//input[@name='CostPerkWh']"),
+                "profit_per_month": (By.XPATH, "//div[@class='circle-content ng-binding']"),
+                "bitcoin_price": (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[2]"),
+                "hashrate": (By.XPATH, "//div[@class='contract-disclosure ng-binding']/b[1]"),
+                "change_measure": (By.XPATH, "//select[@name='currentHashingUnit']")
                 }
 
-
-    def input_hashing_power(self, input_number, measure):
-        element = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.locators.get("hashing_power")))
+    def input_hashing_power(self, input_number, measure, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
+            EC.element_to_be_clickable(self.locators.get("hashing_power")))
         element.clear()
         if measure in ["H/s", "KH/s", "MH/s", "GH/s", "TH/s"]:
-            measure_select = Select(WebDriverWait(self.driver, 3).until(
+            measure_select = Select(WebDriverWait(self.driver, time_wait_element).until(
                 EC.presence_of_element_located(self.locators.get("change_measure"))))
             measure_select.select_by_value(measure)
         else:
@@ -32,33 +31,34 @@ class CryptoComparePage:
         element.click()
         element.send_keys(input_number)
 
-    def input_power_consumption(self, input_number):
-        element = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.locators.get("power_consumption")))
+    def input_power_consumption(self, input_number, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
+            EC.element_to_be_clickable(self.locators.get("power_consumption")))
         element.clear()
         element.click()
         element.send_keys(input_number)
 
-    def input_cost(self, input_number):
-        element = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.locators.get("cost")))
+    def input_cost(self, input_number, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
+            EC.element_to_be_clickable(self.locators.get("cost")))
         element.clear()
         element.click()
         element.send_keys(input_number)
 
-    def get_profit_per_month_value(self):
-        element = WebDriverWait(self.driver, 3).until(
+    def get_profit_per_month_value(self, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
             EC.presence_of_element_located(self.locators.get("profit_per_month")))
         value = float(element.text.replace("$", "").replace(",", ""))
         return value
 
-    def get_bitcoin_price(self):
-        element = WebDriverWait(self.driver, 5).until(
+    def get_bitcoin_price(self, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
             EC.presence_of_element_located(self.locators.get("bitcoin_price")))
         value = float(element.text.replace("1 BTC = $", ""))
         return value
 
-    def get_hashrate(self):
-        element = WebDriverWait(self.driver, 5).until(
+    def get_hashrate(self, time_wait_element=0):
+        element = WebDriverWait(self.driver, time_wait_element).until(
             EC.presence_of_element_located(self.locators.get("hashrate")))
         value = float(element.text.replace(",", "").replace("GH/s", ""))
         return value
-
